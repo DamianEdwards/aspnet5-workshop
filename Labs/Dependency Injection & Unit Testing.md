@@ -61,6 +61,7 @@
 1. Register the `IRequestIdFactory` service as a singleton: `services.AddSingleton<IRequestIdFactory, RequestIdFactory>();`
 1. Register the `IRequestId` service as scoped: `services.AddScoped<IRequestId, RequestId>();`
 1 The `ConfigureServices` method should now look something like this:
+
   ``` C#
   public void ConfigureServices(IServiceCollection services)
   {
@@ -75,6 +76,7 @@
 1. Create a constructor `public RequestIdMiddleware(RequestDelegate next, IRequestId requestId, ILogger<RequestIdMiddleware> logger)` and store the parameters in private fields
 1. Add a method `public Task Invoke(HttpContext context)` and in its body log the request ID using the `ILogger` and `IRequestId` injected from the constructor
 1. Your middleware class should look something like this:
+
   ``` C#
   public class RequestIdMiddleware
   {
