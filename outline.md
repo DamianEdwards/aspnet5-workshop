@@ -13,7 +13,7 @@ Potential topics:
 - Configuration
 - Environments
 - DI
-- Sosting, HTTP servers & features (Kestrel, HttpPlatformHandler, WebListener, Windows Service, etc.)
+- Hosting, HTTP servers & features (Kestrel, HttpPlatformHandler, WebListener, Windows Service, etc.)
 - Logging
 - Error handling
 - MVC basics
