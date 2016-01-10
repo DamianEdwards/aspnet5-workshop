@@ -7,8 +7,7 @@
 
   ``` JSON
   "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+    ...,
     "Microsoft.AspNet.Routing.Extensions": "1.0.0-*"
   }
   ```
@@ -51,3 +50,37 @@
 1. Modify the router to include both versions of the route above (with and without the route constraint)
 1. Experiment with changing the order the routes are added and observe what affect that has on which route is matched for a given URL
 
+# Add MVC
+1. Open `project.json` and add "Microsoft.AspNet.Mvc" to the `dependencies` section:
+
+  ``` JSON
+  "dependencies": {
+    ...,
+    "Microsoft.AspNet.Mvc": "6.0.0-*"
+  }
+  ```
+1. Add a "Controllers" folder to your application
+1. Create a new controller called "HomeController" in the new folder:
+
+  ``` c#
+  public class HomeController
+  {
+      [HttpGet("/")]
+      public string Index() => "Hello from MVC!";
+  }
+  ```
+1. Add the MVC services and middleware to the configuration in the `Startup.cs`:
+
+  ``` c#
+  public void ConfigureServices(IServiceCollection services)
+  {
+      services.AddMvc();
+  }
+  
+  public void Configure(IApplicationBuilder app)
+  {
+      ...
+      services.UseMvc();
+  }
+  ```
+1. If you have time, try to change the controller to render a view instead of returning a string directly
