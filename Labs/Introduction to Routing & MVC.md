@@ -83,4 +83,5 @@
       services.UseMvc();
   }
   ```
+1. Run the site and verify the message is returned from your MVC controller
 1. If you have time, try to change the controller to render a view instead of returning a string directly
