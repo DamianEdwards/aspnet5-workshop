@@ -204,8 +204,37 @@
     }
     ```
 
-3. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the friendly error page instead of the exception.
+3. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the custom error page instead of the exception.
+
+## Showing custom pages for non 500 status codes
+
+1. Change the middleware throwing the exception message to instead set a 404 status code:
+
+    ```C#
+    app.Run((context) =>
+    {
+        context.Response.StatusCode = 404;
+        return Task.FromResult(0);
+    });
+    ```
+2. Add the status code pages middleware above the exception handler middleware in `Configure`:
+
+    ```C#
+    app.UseStatusCodePages(subApp =>
+    {
+        subApp.Run(async context =>
+        {
+            context.Response.ContentType = "text/html";
+            await context.Response.WriteAsync($"<strong> You got a {context.Response.StatusCode}<strong>");
+            await context.Response.WriteAsync(new string(' ', 512));  // Padding for IE
+        });
+    });
+    
+    ...
+    ```
+3. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the custom error page instead of the browser's default 404 page.
 
 ## Extra
 1. Access the exception when using the exception handler middleware, log it to the logging system. (**Note: The exception handler middleware does log the exception via the logging system.**)
-2. Serve an html page using the static files middleware when an exception occurs.
+2. Serve an html page when an exception occurs using the static files middleware and the exception handler middleware.
+3. Serve an html page for a 404 status using the static files middleware and status code pages middleware.
