@@ -62,11 +62,11 @@
 1. Register the `IRequestId` service as scoped: `services.AddScoped<IRequestId, RequestId>();`
 1 The `ConfigureServices` method should now look something like this:
   ``` C#
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddSingleton<IRequestIdFactory, RequestIdFactory>();
-    services.AddScoped<IRequestId, RequestId>();
-}
+  public void ConfigureServices(IServiceCollection services)
+  {
+      services.AddSingleton<IRequestIdFactory, RequestIdFactory>();
+      services.AddScoped<IRequestId, RequestId>();
+  }
   ```
 
 ## Create and add a middleware that logs the request ID
@@ -118,4 +118,4 @@ public void ConfigureServices(IServiceCollection services)
 1. Add a method `public void MyFirstTest()` and decorate it with the `[Fact]` attribute, importing any required namespaces as you go
 1. Do a simple assertion in the method body that will pass, e.g. `Assert.Equal(1, 1);`
 1. Open the "Test Explorer" window
-1. Build the solution and your tests should appear
+1. Build the solution and your tests should appear  
