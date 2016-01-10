@@ -180,4 +180,32 @@
 1. Change the Configure method signature to take `IHostingEnvironment`:
 
     ```C#
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHostingEnvironment env)
     ```
+
+2. Add the exception handler middleware to the `Configure` method. Make sure it only runs when not in development:
+    
+    ```C#
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        app.UseExceptionHandler(subApp =>
+        {
+            subApp.Run(async context =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.WriteAsync("<strong> Oops! Something went wrong :( </strong>");
+                await context.Response.WriteAsync(new string(' ', 512));  // Padding for IE
+            });
+        });
+    }
+    ```
+
+3. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the friendly error page instead of the exception.
+
+## Extra
+1. Access the exception when using the exception handler middleware, log it to the logging system. (**Note: The exception handler middleware does log the exception via the logging system.**)
+2. Serve an html page using the static files middleware when an exception occurs.
