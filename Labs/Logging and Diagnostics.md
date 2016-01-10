@@ -65,6 +65,45 @@
 4. Run the application and open a browser window with `http://localhost:5000/` as the address. You should only logs written by the Startup logger.
 
 ## Adding other logging providers
+1. Add the Serilog logger provider to `project.json`:
+
+    ```JSON
+      "dependencies": {
+        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+        "Microsoft.Extensions.Logging.Console": "1.0.0-*",
+        "Serilog.Framework.Logging": "1.0.0-*"
+      },
+    ```
+2. Configure the Serilog in `Startup.cs` to write to a file called `logfile.txt` in the project root:
+    
+    ```C#
+    public class Startup
+    {
+        public Startup(IApplicationEnvironment appEnv)
+        {
+            var logFile = Path.Combine(appEnv.ApplicationBasePath, "logfile.txt");
+    
+            Log.Logger = new LoggerConfiguration()
+                            .WriteTo.TextWriter(File.CreateText(logFile))
+                            .CreateLogger();
+        }
+    }
+    ```
+3. Add the Serilog provider in `Configure`:
+
+    ```C#
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+        loggerFactory.AddConsole();
+        loggerFactory.AddSerilog();
+        ...
+    }
+    ```
+
+4. Run the application and open a browser window with `http://localhost:5000/` as the address. You should only a file called `logfile.txt` appear in your application root. 
+
+5. Closing the conosle window and open the file, the application logs should be in there.
 
 
 # Diagnostic pages
