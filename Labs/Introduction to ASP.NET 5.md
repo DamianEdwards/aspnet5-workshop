@@ -4,7 +4,7 @@
 1. Create an inline middleware that runs **before** the hello world delegate that sets the culture for the current request from the query string:
   
   ``` C#
-  public void Configure(IApplicationBuilder appBuilder)
+  public void Configure(IApplicationBuilder app)
   {
     app.Use((context, next) =>
     {
@@ -125,7 +125,7 @@
 
   ``` JSON
   "dependencies": {
-    "Microsoft.AspNet.Server.IIS": "1.0.0-*",
+    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
     "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
     "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-*"
   },
@@ -158,8 +158,8 @@
           {
               var culture = new CultureInfo(cultureQuery);
   #if !DNXCORE50
-                  Thread.CurrentThread.CurrentCulture = culture;
-                  Thread.CurrentThread.CurrentUICulture = culture;
+              Thread.CurrentThread.CurrentCulture = culture;
+              Thread.CurrentThread.CurrentUICulture = culture;
   #else
               CultureInfo.CurrentCulture = culture;
               CultureInfo.CurrentUICulture = culture;
