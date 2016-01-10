@@ -26,6 +26,10 @@
   }
   ```
 1. Run the site and verify your middleware is hit via routing (Ctrl+F5)
+1. Add another route that matches a sub-path:
+  ``` c#
+  routeBuilder.MapGet("sub", context => context.Response.WriteAsync("Hello from sub!"));
+  ```
 
 ## Capture and use route data
 1. Add another route that captures the name of an item from the URL, e.g. "item/{itemName}", and displays it in the response:
