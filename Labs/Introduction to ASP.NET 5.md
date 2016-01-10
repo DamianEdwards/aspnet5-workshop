@@ -94,40 +94,13 @@
 1. Add an environment variable named "message" with a value of "Hello from environment variable!"
 1. Run the application again and the message should now be the value from the environment variable
 
-# Configure the project to use packages from the unstable feed
-1. Create a file called `nuget.config` to the solution directory (next to the .sln file)
-1. Add configuration to bring in the ASP.NET 5 dev feed and nuget.org
-  
-  ``` xml
-  <?xml version="1.0" encoding="utf-8"?>
-  <configuration>
-    <packageSources>
-      <add key="AspNetVNext" value="https://www.myget.org/F/aspnetvnext/api/v2" />
-      <add key="NuGet" value="https://nuget.org/api/v2/" />
-    </packageSources>
-  </configuration>
-  ```
-  
-1. Configure the project to use the latest DNX version you have installed by opening the `global.json` file in the solution directory and setting the `sdk` property to that version.
-  - Note, you can use DNVM at the command line to list the versions you have installed
-
-  ``` JSON
-  {
-      "projects": [ "src", "test" ],
-      "sdk": {
-          "version": "1.0.0-beta6-12032"
-      }
-  }
-  ```
-
-1. Close and re-open the solution in Visual Studio
 1. In the application's `project.json` file, replace all references to `beta4` with `*` to indicate you want the latest packages from the configured feeds, e.g.
 
   ``` JSON
   "dependencies": {
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-*"
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-*"
   },
   ```
   
