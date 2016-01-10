@@ -128,7 +128,7 @@
 
 ## Write some buggy code
 
-1. Add a middleware to the above application that throws an exception. Your Configure method should look something like this:
+1. Add a middleware to the above application that throws an exception. Your `Configure` method should look something like this:
 
     ```C#
     public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
