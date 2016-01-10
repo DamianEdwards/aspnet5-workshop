@@ -40,6 +40,29 @@
 6. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the default request logging in the framework as well as your custom log message.
 
 ## Filtering logs
+1. Change the minimum log level for the console logger in `Startup.cs`:
+
+    ```C#
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+        loggerFactory.AddConsole(LogLevel.Debug);
+        ...
+    }
+    ```
+
+2. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see more verbose logging from the framework.
+
+3. Change the application to only show logs from the Startup category:
+
+    ```C#
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+        loggerFactory.AddConsole((category, level) => category == typeof(Startup).FullName);
+        ...
+    }
+    ```
+
+4. Run the application and open a browser window with `http://localhost:5000/` as the address. You should only logs written by the Startup logger.
 
 ## Adding other logging providers
 
