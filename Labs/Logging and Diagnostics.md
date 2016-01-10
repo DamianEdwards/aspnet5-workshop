@@ -1,6 +1,6 @@
 ## Logging
 
-## Setting up your application 
+## Setting up your application for logging
 1. Use the application from the first lab (or setup steps from the fisrt lab).
 2. Add the console logging provider to `project.json`:
 
@@ -17,11 +17,31 @@
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
+
+            var startupLogger = loggerFactory.CreateLogger<Startup>();
             ...
         }
     ```
-4. In Visual Studio, change the active command to web by navigating to the play/run button and changing the drop down to the web command. 
+
+4. Add a log statement to the end of the `Configure` method:
+    
+    ```C#
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+        ...
+        startupLogger.LogInformation("Application startup complete!");
+    }
+    ```
+    
+5. In Visual Studio, change the active command to web by navigating to the play/run button and changing the drop down to the web command. 
 
     ![image](https://cloud.githubusercontent.com/assets/95136/12222924/633ef134-b7c1-11e5-9146-da36013da8d8.png)
 
-5. Run the application and open a browser window with `http://localhost:5000/` as the address.
+6. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the default request logging in the framework as well as your custom log message.
+
+## Filtering log levels
+
+## Adding other logging providers
+
+
+# Diagnostic pages
