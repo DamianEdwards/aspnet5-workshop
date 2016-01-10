@@ -33,6 +33,7 @@
   ``` c#
   routeBuilder.MapGet("sub", context => context.Response.WriteAsync("Hello from sub!"));
   ```
+1. Run the site and verify that your routes are hit when the matching URL is browsed to
 
 ## Capture and use route data
 1. Add another route that captures the name of an item from the URL, e.g. "item/{itemName}", and displays it in the response:
