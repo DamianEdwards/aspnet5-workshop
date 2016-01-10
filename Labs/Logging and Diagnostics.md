@@ -2,7 +2,7 @@
 
 ## Setting up your application for logging
 1. Use the application from the first lab (or setup steps from the fisrt lab).
-2. Add the console logging provider to `project.json`:
+2. Add the `Microsoft.Extensions.Logging.Console` package to `project.json`:
 
     ```JSON
       "dependencies": {
@@ -40,7 +40,7 @@
 6. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the default request logging in the framework as well as your custom log message.
 
 ## Filtering logs
-1. Add a couple more loggging statements to the `Configure` method:
+1. Add a couple more logging statements to the `Configure` method:
     
     ```C#
     public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
@@ -147,3 +147,30 @@
         ...
     }
     ```
+2. Run the application and open a browser window with `http://localhost:5000/` as the address. The browser should show a generic error page but the exception message should appear in the console.
+
+## Adding the diagnostics middleware
+
+1. Add the `Microsoft.AspNet.Diagnostics` to `project.json`:
+
+    ```JSON
+      "dependencies": {
+        "Microsoft.AspNet.Diagnostics": "1.0.0-*",
+        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+        "Microsoft.Extensions.Logging.Console": "1.0.0-*",
+        "Serilog.Framework.Logging": "1.0.0-*"
+      },
+    ```
+    
+2. Add the developer experience middleware before the middleware that throws the exception:
+
+    ```C#
+    app.UseDeveloperExceptionPage();
+
+    app.Run((context) =>
+    {
+        throw new InvalidOperationException("Oops!");
+    });
+    ```
+3. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the exception page in the browser.
