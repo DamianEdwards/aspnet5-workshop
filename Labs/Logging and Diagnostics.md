@@ -39,7 +39,7 @@
 
 6. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the default request logging in the framework as well as your custom log message.
 
-## Filtering log levels
+## Filtering logs
 
 ## Adding other logging providers
 
