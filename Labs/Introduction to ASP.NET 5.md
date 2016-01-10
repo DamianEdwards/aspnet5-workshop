@@ -126,7 +126,7 @@
   ``` JSON
   "dependencies": {
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
     "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-*"
   },
   ```
