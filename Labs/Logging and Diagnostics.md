@@ -174,3 +174,10 @@
     });
     ```
 3. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the exception page in the browser.
+
+## Only showing exception pages during development
+
+1. Change the Configure method signature to take `IHostingEnvironment`:
+
+    ```C#
+    ```
