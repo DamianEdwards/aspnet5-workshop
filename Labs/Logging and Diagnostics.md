@@ -40,7 +40,22 @@
 6. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see the default request logging in the framework as well as your custom log message.
 
 ## Filtering logs
-1. Change the minimum log level for the console logger in `Startup.cs`:
+1. Add a couple more loggging statements to the `Configure` method:
+    
+    ```C#
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+        ...
+        startupLogger.LogInformation("Application startup complete!");
+
+        startupLogger.LogCritical("This is a critical message");
+        startupLogger.LogDebug("This is a debug message");
+        startupLogger.LogWarning("This is a warning message");
+        startupLogger.LogError("This is an error message");
+    }
+    ```
+    
+2. Change the minimum log level for the console logger in `Startup.cs`:
 
     ```C#
     public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
@@ -50,9 +65,9 @@
     }
     ```
 
-2. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see more verbose logging from the framework.
+3. Run the application and open a browser window with `http://localhost:5000/` as the address. You should see more verbose logging from the framework and startup including debug messages.
 
-3. Change the application to only show logs from the Startup category:
+4. Change the application to only show logs from the Startup category:
 
     ```C#
     public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
@@ -62,7 +77,7 @@
     }
     ```
 
-4. Run the application and open a browser window with `http://localhost:5000/` as the address. You should only logs written by the Startup logger.
+5. Run the application and open a browser window with `http://localhost:5000/` as the address. You should only logs written by the Startup logger.
 
 ## Adding other logging providers
 1. Add the Serilog logger provider to `project.json`:
@@ -105,5 +120,30 @@
 
 5. Closing the conosle window and open the file, the application logs should be in there.
 
+## Extra 
+1. Try adding more advanced filters with different levels.
+2. Try configuring logging using the Configuration system (`IConfiguration`).
 
 # Diagnostic pages
+
+## Add a middleware to the above application that throws an exception. Your Configure method should look something like this:
+
+    ```C#
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+        loggerFactory.AddConsole();
+
+        loggerFactory.AddSerilog();
+
+        var startupLogger = loggerFactory.CreateLogger<Startup>();
+
+        app.UseIISPlatformHandler();
+
+        app.Run((context) =>
+        {
+            throw new InvalidOperationException("Oops!");
+        });
+
+        startupLogger.LogInformation("Application startup complete!");
+    }
+    ```
