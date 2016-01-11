@@ -84,8 +84,7 @@
   ```JSON
   {
     "server": "Microsoft.AspNet.Server.Kestrel",
-    "server.urls": "http://localhost:5001",
-    "environment": "Development"
+    "server.urls": "http://localhost:5001"
   }
   ```
 
@@ -115,8 +114,8 @@
 
 1. Right-mouse click on the project and select "Properties"
 1. Open the "Debug" tab
-1. Add an environment variable named "ASPNET_ENVIRONMENT" with a value of "Staging"
-1. Run the application again and the current environment should be set to Staging.
+1. Add an environment variable named "ASPNET_ENVIRONMENT" with a value of "Development"
+1. Run the application again and the current environment should be set to Development.
 
 ## Serving static files
 
@@ -166,3 +165,34 @@
 1. Change the static files middleware in `Startup.cs` from `app.UseStaticFiles()` to `app.UseFileServer()`.
 2. Run the application. The default page `index.html` should show when navigating to the root of the site.
 
+## Add IIS Support
+
+1. Go under properties and create a file called `launchSettings.json` (if one isn't already created) with the following contents:
+
+  ```JSON
+  {
+    "iisSettings": {
+      "windowsAuthentication": false,
+      "anonymousAuthentication": true,
+      "iisExpress": {
+        "applicationUrl": "http://localhost:17001/",
+        "sslPort": 0
+      }
+    },
+    "profiles": {
+      "IIS Express": {
+        "commandName": "IISExpress",
+        "launchBrowser": true,
+        "environmentVariables": {
+          "ASPNET_ENVIRONMENT": "Development"
+        }
+      },
+      "web": {
+        "commandName": "web",
+        "environmentVariables": {
+          "ASPNET_ENVIRONMENT": "Development"
+        }
+      }
+    }
+  }
+  ```
