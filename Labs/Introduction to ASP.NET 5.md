@@ -117,6 +117,8 @@
 1. Add an environment variable named "ASPNET_ENVIRONMENT" with a value of "Development"
 1. Run the application again and the current environment should be set to Development.
 
+OS X users can just type `export ASPNET_ENVIRONMENT=Development` in their current terminal window.
+
 ## Serving static files
 
 1. Add the `Microsoft.AspNet.StaticFiles` package to `project.json`:
