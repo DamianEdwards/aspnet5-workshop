@@ -238,6 +238,50 @@
 1. Add an environment variable named "culture" with a value of "fr-FR"
 1. Run the application again and the culture should now be the value fr-FR
 
-# Extra
+## Flowing from dependency injection system to middleware
 
-## Supporting options flowing from dependency injection
+1. Change the `RequestCultureMiddleware` constructor to take `IOptions<RequestCultureOptions>` instead of `RequestCultureOptions`:
+  
+  ```C#
+  public RequestCultureMiddleware(RequestDelegate next, IOptions<RequestCultureOptions> options)
+  {
+      _next = next;
+      _options = options.Value;
+  }
+  ```
+  
+1. Change the `UseRequestCulture` extension methods to both call `UseMiddleware<RequestCultureMiddleware>`. The overload taking `RequestCultureOptions` should wrap it in an `IOptions<RequestCultureOptions>` by calling `Options.Create(options)`: 
+
+  ```C#
+  public static class RequestCultureMiddlewareExtensions
+  {
+      public static IApplicationBuilder UseRequestCulture(this IApplicationBuilder builder)
+      {
+          return builder.UseMiddleware<RequestCultureMiddleware>();
+      }
+
+      public static IApplicationBuilder UseRequestCulture(this IApplicationBuilder builder, RequestCultureOptions options)
+      {
+          return builder.UseMiddleware<RequestCultureMiddleware>(Options.Create(options));
+      }
+  }
+  ```
+1. In `Startup.cs` change the `UseRequestCulture` middleware to not take any arguments:
+
+  ```C#
+  app.UseRequestCulture();
+  ```
+
+1. In `Startup.cs` add a `ConfigureServices(ISeviceCollection services)` method and add a line that configures the culture using the `services.Configure<RequestCultureOptions>` method:
+
+  ```C#
+  public void ConfigureServices(IServiceCollection services)
+  {
+    services.Configure<RequestCultureOptions>(options =>
+    {
+        options.DefaultCulture = new CultureInfo(_configuration["culture"] ?? "en-GB");
+    });
+  }
+  ```
+  
+1. Run the application and see that options are now being configured from the dependency injection system.
