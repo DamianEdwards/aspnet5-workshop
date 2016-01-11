@@ -238,7 +238,7 @@
 1. Add an environment variable named "culture" with a value of "fr-FR"
 1. Run the application again and the culture should now be the value fr-FR
 
-## Flowing from dependency injection system to middleware
+## Flowing options from dependency injection system to middleware
 
 1. Change the `RequestCultureMiddleware` constructor to take `IOptions<RequestCultureOptions>` instead of `RequestCultureOptions`:
   
