@@ -215,28 +215,6 @@
 1. Go back to Visual Studio and touch and save the `Startup.cs` file to force the process to restart
 1. Go back to the browser now and refresh the page and it should show the updated message
 
-## Override configuration from environment variables
-1. In the application's `Startup.cs` file, add a call to `.AddEnvironmentVariables()` immediately after the call to `.AddJsonFile`
-  - Note that the order you chain these methods together matters, as values in later configuration sources override matching values from earlier sources
-1. Your constructor should now look like this:
-  
-  ``` C#
-  public Startup()
-  {
-      var configuration = new ConfigurationBuilder()
-          .AddJsonFile("config.json")
-          .AddEnvironmentVariables()
-          .Build();
-
-      _configuration = configuration;
-  }
-  ```
-  
-1. Now you're going to edit the launch profile so that it includes an environment variable that will override the message from `config.json`
-1. Right-mouse click on the project and select "Properties"
-1. Open the "Debug" tab
-1. Add an environment variable named "culture" with a value of "fr-FR"
-1. Run the application again and the culture should now be the value fr-FR
 
 ## Flowing options from dependency injection system to middleware
 
