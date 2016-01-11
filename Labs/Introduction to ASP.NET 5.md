@@ -134,7 +134,7 @@
   }
   ```
   
-1. Change the `Invoke` method of the middleware to use the DefaultCulture if none specified on the query string
+1. Change the `Invoke` method of the middleware to use the DefaultCulture from options if none specified on the query string
 
   ```C#
   public Task Invoke(HttpContext httpContext)
