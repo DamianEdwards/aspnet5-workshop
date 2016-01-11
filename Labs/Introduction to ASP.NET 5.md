@@ -153,22 +153,30 @@
 
       if (requestCulture != null)
       {
-#if !DNXCORE50
+  #if !DNXCORE50
           Thread.CurrentThread.CurrentCulture = requestCulture;
           Thread.CurrentThread.CurrentUICulture = requestCulture;
-#else
+  #else
           CultureInfo.CurrentCulture = requestCulture;
           CultureInfo.CurrentUICulture = requestCulture;
-#endif
+  #endif
       }
 
       return _next(httpContext);
   }
   ```
-  
-1.
+1. Set the fallback culture in `Startup.cs` `Configure` method to some default value:
 
-## Read default configuration from `IConfiguration`
+  ```C#
+  app.UseRequestCulture(new RequestCultureOptions
+  {
+       DefaultCulture = new CultureInfo("en-GB")
+  });
+  ```
+
+1. Run the application again and see the default culture when no query string is specified matches the one configured.
+
+## Read request culture configuration from a file
 1. Add a constructor to the application's `Startup.cs`
 1. Create a new `Configuration` object in the constructor and assign it to a new private class field `IConfiguration _configuration`
 1. Add a reference to the `Microsoft.Extensions.Configuration.Json` package in the application's `project.json` file
