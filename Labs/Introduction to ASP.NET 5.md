@@ -149,4 +149,11 @@
   </html>
   ```
 
-1. Run the application and navigate to `/index.html` in the browser.
+1. Run the application and navigate to the root. It should show the hello world middleware.
+1. Navigate to `index.html` and it should show the static page in `wwwroot`.
+
+## Adding default document support
+
+1. Change the static files middleware in `Startup.cs` from `app.UseStaticFiles()` to `app.UseFileServer()`.
+2. Run the application. The default page `index.html` should show when navigating to the root of the site.
+
