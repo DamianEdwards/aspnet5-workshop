@@ -177,6 +177,18 @@
   },
   ```
 
+1. Add `app.UseIISPlatformHandler()` to the `Configure` method in `Startup.cs`:
+
+  ```C#
+  public void Configure(IApplicationBuilder app)
+  {
+      app.UseIISPlatformHandler();
+      app.UseFileServer();
+
+      ...
+  }
+  ```
+
 1. Right click project properties, go to the `Debug` tab and click `New...` next to the profile:
 
     ![image](https://cloud.githubusercontent.com/assets/95136/12227671/00b77b96-b828-11e5-97ef-487cac89fb3f.png)
