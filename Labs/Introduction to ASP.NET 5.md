@@ -57,3 +57,54 @@
   ```
   
 1. Run the application and open a browser to `http://localhost:5001/`, you should see hello world printed.
+
+## Changing the environment to Development
+
+1. Change the `Main` in `Program.cs` to set the environment to Development:
+
+  ```C#
+  public static void Main(string[] args)
+  {
+      var app = new WebApplicationBuilder()
+                  .UseServer("Microsoft.AspNet.Server.Kestrel")
+                  .UseUrls("http://localhost:5001")
+                  .UseEnvironment(EnvironmentName.Development)
+                  .UseStartup<Startup>()
+                  .Build();
+      app.Run();
+  }
+  ```
+  
+2. Run the application and it should now be running with the "Development" environment.
+
+## Reading the default hosting configuration
+
+1. Add a file called `hosting.json` in the project directory with the following contents:
+
+  ```JSON
+  {
+    "server": "Microsoft.AspNet.Server.Kestrel",
+    "server.urls": "http://localhost:5001",
+    "environment": "Development"
+  }
+  ```
+
+1. Change the `Main` method in `Program.cs` to read the default hosting configuration:
+
+  ```C#
+  public static void Main(string[] args)
+  {
+      var hostingConfiguration = WebApplicationConfiguration.GetDefault(args);
+
+      var app = new WebApplicationBuilder()
+                  .UseConfiguration(hostingConfiguration)
+                  .UseStartup<Startup>()
+                  .Build();
+      app.Run();
+  }
+  ```
+1. Run the application, it should have the same settings that it had previously instead they should be read from the `hosting.json` file.
+
+1. Change the URL in `hosting.json` to `http://localhost:3000`:
+
+1. Run the application on `http://localhost:3000`.
