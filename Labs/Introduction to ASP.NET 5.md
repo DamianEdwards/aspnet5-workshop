@@ -108,3 +108,45 @@
 1. Change the URL in `hosting.json` to `http://localhost:3000`:
 
 1. Run the application on `http://localhost:3000`.
+
+## Serving static files
+
+1. Add the `Microsoft.AspNet.StaticFiles` package to `project.json`:
+
+  ```JSON
+  "dependencies": {
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-*"
+  },
+  ```
+1. Go to `Startup.cs` in the `Configure` method and add `UseStaticFiles` before the hello world middleware:
+
+  ```C#
+  public void Configure(IApplicationBuilder app)
+  {
+      app.UseStaticFiles();
+
+      app.Run(async context =>
+      {
+          await context.Response.WriteAsync("Hello World");
+      });
+  }
+  ```
+  
+1. Create a folder called `wwwroot` in the project folder.
+1. Create a file called `index.html` with the following contents:
+
+  ```
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8" />
+      <title></title>
+  </head>
+  <body>
+      <h1>Hello from ASP.NET 5!</h1> 
+  </body>
+  </html>
+  ```
+
+1. Run the application and navigate to `/index.html` in the browser.
