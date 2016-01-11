@@ -8,29 +8,29 @@
   ``` C#
   public void Configure(IApplicationBuilder app)
   {
-    app.Use((context, next) =>
-    {
-      var cultureQuery = context.Request.Query["culture"];
-      if (!string.IsNullOrWhiteSpace(cultureQuery))
+      app.Use((context, next) =>
       {
-        var culture = new CultureInfo(cultureQuery);
-  #if !DNXCORE50
-        Thread.CurrentThread.CurrentCulture = culture;
-        Thread.CurrentThread.CurrentUICulture = culture;
-  #else
-        CultureInfo.CurrentCulture = culture;
-        CultureInfo.CurrentUICulture = culture;
-  #endif
-      }
+          var cultureQuery = context.Request.Query["culture"];
+          if (!string.IsNullOrWhiteSpace(cultureQuery))
+          {
+              var culture = new CultureInfo(cultureQuery);
+      #if !DNXCORE50
+              Thread.CurrentThread.CurrentCulture = culture;
+              Thread.CurrentThread.CurrentUICulture = culture;
+      #else
+              CultureInfo.CurrentCulture = culture;
+              CultureInfo.CurrentUICulture = culture;
+      #endif
+          }
+        
+          // Call the next delegate/middleware in the pipeline
+          return next();
+      });
       
-      // Call the next delegate/middleware in the pipeline
-      return next();
-    });
-    
-    app.Run(async (context) =>
-    {
-        await context.Response.WriteAsync($"Hello {CultureInfo.CurrentCulture.DisplayName}");
-    });
+      app.Run(async (context) =>
+      {
+          await context.Response.WriteAsync($"Hello {CultureInfo.CurrentCulture.DisplayName}");
+      });
   }
   ```
   
