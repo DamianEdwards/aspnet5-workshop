@@ -134,7 +134,7 @@
   ```
   
 1. Create a folder called `wwwroot` in the project folder.
-1. Create a file called `index.html` with the following contents:
+1. Create a file called `index.html` with the following contents in the `wwwroot` folder:
 
   ```
   <!DOCTYPE html>
