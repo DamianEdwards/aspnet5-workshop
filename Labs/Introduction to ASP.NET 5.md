@@ -217,7 +217,7 @@
 
 ## Capturing standard output from application when running in IIS/IIS Express
 
-1. Open web.config and add the `stdoutLogEnabled` to the `httpPlatform` section:
+1. Open web.config and add the `stdoutLogEnabled="true"` to the `httpPlatform` section:
 
   ```XML
   <httpPlatform processPath="%DNX_PATH%" arguments="%DNX_ARGS%" forwardWindowsAuthToken="false" stdoutLogEnabled="true" startupTimeLimit="3600" />
