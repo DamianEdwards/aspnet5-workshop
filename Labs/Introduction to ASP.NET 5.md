@@ -42,7 +42,7 @@
   }
   ```
   
-1. Create a new `WebApplicationBuilder` to setup the server, urls and Startup class:
+1. Create a new `WebApplicationBuilder` in the `Program.cs` file to setup the server, urls and Startup class:
 
   ```C#
   public static void Main(string[] args)
