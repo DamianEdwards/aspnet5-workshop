@@ -1,4 +1,6 @@
-# Creating an inline middleware
+# Writing middleware
+
+## Write a middleware that sets the current culture based on a query string value
 1. Start with the application you created in the first lab, or just create a new empty ASP.NET 5 application
 1. Open `Startup.cs`
 1. Create an inline middleware that runs **before** the hello world delegate that sets the culture for the current request from the query string:
@@ -35,7 +37,7 @@
 1. Run the app now and set the culture via the query string, e.g. http://localhost/?culture=no
 
 
-# Move the middleware to its own type
+## Move the middleware to its own type
 1. Create a new class in the application `RequestCultureMiddleware`
 1. Add a constructor that takes a parameter `RequestDelegate next` and assigns it to a private field `private readonly RequestDelegate _next`
 1. Add a method `public Task Invoke(HttpContext context)`
@@ -71,17 +73,102 @@
       }
   }
   ```
+
+1. At the bottom of the file, add a class that exposes the middleware via an extension method on `IApplicationBuilder`.
+
+  ```C#
+    public static class RequestCultureMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseRequestCulture(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<RequestCultureMiddleware>();
+        }
+    }
+  ```
   
 1. Back in the application's `Startup.cs` file, delete the inline middleware delegate
 1. Add your new middleware class to the HTTP pipeline:
 
   ``` C#
-  app.UseMiddleware<RequestCultureMiddleware>();
+  app.UseRequestCulture();
   ```
   
 1. Run the application again and see that the middleware is now running as a class
 
-# Add configuration
+## Adding options to middleware
+1. Create a class called `RequestCultureOptions.cs` with a `CultureInfo` property called DefaultCulture.
+
+  ```C#
+  public class RequestCultureOptions
+  {
+      public CultureInfo DefaultCulture { get; set; }
+  }
+  ```
+1. Add an overload to `UseRequestCulture` that takes those options and passes them into the `UseMiddleware<RequestCultureMiddleware>` call.
+
+  ```C#
+  public static IApplicationBuilder UseRequestCulture(this IApplicationBuilder builder)
+  {
+      return builder.UseRequestCulture(new RequestCultureOptions());
+  }
+
+  public static IApplicationBuilder UseRequestCulture(this IApplicationBuilder builder, RequestCultureOptions options)
+  {
+      return builder.UseMiddleware<RequestCultureMiddleware>(options);
+  }
+  ```
+1. Change the `RequestCultureMiddleware` constructor to take the `RequestCultureOptions`.
+
+  ```C#
+  public class RequestCultureMiddleware
+  {
+      private readonly RequestDelegate _next;
+      private readonly RequestCultureOptions _options;
+
+      public RequestCultureMiddleware(RequestDelegate next, RequestCultureOptions options)
+      {
+          _next = next;
+          _options = options;
+      }
+      ...
+  }
+  ```
+  
+1. Change the `Invoke` method of the middleware to use the DefaultCulture if none specified on the query string
+
+  ```C#
+  public Task Invoke(HttpContext httpContext)
+  {
+      CultureInfo requestCulture = null;
+
+      var cultureQuery = httpContext.Request.Query["culture"];
+      if (!string.IsNullOrWhiteSpace(cultureQuery))
+      {
+          requestCulture = new CultureInfo(cultureQuery);
+      }
+      else
+      {
+          requestCulture = _options.DefaultCulture;
+      }
+
+      if (requestCulture != null)
+      {
+#if !DNXCORE50
+          Thread.CurrentThread.CurrentCulture = requestCulture;
+          Thread.CurrentThread.CurrentUICulture = requestCulture;
+#else
+          CultureInfo.CurrentCulture = requestCulture;
+          CultureInfo.CurrentUICulture = requestCulture;
+#endif
+      }
+
+      return _next(httpContext);
+  }
+  ```
+  
+1.
+
+## Read default configuration from `IConfiguration`
 1. Add a constructor to the application's `Startup.cs`
 1. Create a new `Configuration` object in the constructor and assign it to a new private class field `IConfiguration _configuration`
 1. Add a reference to the `Microsoft.Extensions.Configuration.Json` package in the application's `project.json` file
