@@ -37,7 +37,7 @@
 # Add configuration
 1. Add a constructor to the application's `Startup.cs`
 1. Create a new `Configuration` object in the constructor and assign it to a new private class field `IConfiguration _configuration`
-1. Add a reference to the `Microsoft.Framework.ConfigurationModel.Json` package in the application's `project.json` file
+1. Add a reference to the `Microsoft.Extensions.Configuration.Json` package in the application's `project.json` file
 1. Back in the `Startup.cs`, add a call to `.AddJsonFile("config.json")` immediately after the creation of the `Configuration` object (inline, chained method). It should now look like the following:
 
   ``` C#
