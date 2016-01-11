@@ -84,4 +84,6 @@
   }
   ```
 1. Run the site and verify the message is returned from your MVC controller
-1. If you have time, try to change the controller to render a view instead of returning a string directly
+1. If you have time, try the following:
+  - Change the controller to render a view instead of returning a string directly
+  - Play with the `[HttpGet("/")]` attribute to change the route the action method will match
