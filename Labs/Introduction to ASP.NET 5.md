@@ -109,6 +109,15 @@
 
 1. Run the application on `http://localhost:3000`.
 
+## Setting the environment using environment variables
+
+1. Now you're going to edit the launch profile so that it includes an environment variable that will override the message from config.json
+
+1. Right-mouse click on the project and select "Properties"
+1. Open the "Debug" tab
+1. Add an environment variable named "ASPNET_ENVIRONMENT" with a value of "Staging"
+1. Run the application again and the current environment should be set to Staging.
+
 ## Serving static files
 
 1. Add the `Microsoft.AspNet.StaticFiles` package to `project.json`:
