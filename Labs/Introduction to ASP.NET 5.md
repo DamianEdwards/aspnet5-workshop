@@ -240,6 +240,8 @@
 
 ## Flowing options from dependency injection system to middleware
 
+1. Add the `Microsoft.Extensions.Options` package to `project.json`.
+
 1. Change the `RequestCultureMiddleware` constructor to take `IOptions<RequestCultureOptions>` instead of `RequestCultureOptions`:
   
   ```C#
