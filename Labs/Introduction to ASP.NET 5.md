@@ -189,8 +189,9 @@
 
     public Startup()
     {
-        var configuration = new Configuration()
-            .AddJsonFile("config.json");
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("config.json")
+            .Build();
 
         _configuration = configuration;
     }
@@ -199,18 +200,18 @@
   ```
   
 1. Add a new JSON file to the project called `config.json`
-1. Add a new key/value pair to the `config.json` file: `"culture": "en-us"`
-1. Change the code in `Startup.cs` to use the message from the configuration system:
+1. Add a new key/value pair to the `config.json` file: `"culture": "en-US"`
+1. Change the code in `Startup.cs` to set the default culture using the configuration system:
 
   ``` C#
-  app.Run(async (context) =>
+  app.UseRequestCulture(new RequestCultureOptions
   {
-      await context.Response.WriteAsync(_configuration["message"]);
+       DefaultCulture = new CultureInfo(_configuration["culture"] ?? "en-GB")
   });
   ```
   
-1. Run the application and the message from `config.json` should be returned
-1. Change the message in the `config.json` file and refresh the page (without changing any other code). Note that the message hasn't changed as the configuration was only read when the application was started.
+1. Run the application and the default culture should be set from the configuration file.
+1. Change the culture in the `config.json` file and refresh the page (without changing any other code). Note that the message hasn't changed as the configuration was only read when the application was started.
 1. Go back to Visual Studio and touch and save the `Startup.cs` file to force the process to restart
 1. Go back to the browser now and refresh the page and it should show the updated message
 
@@ -222,9 +223,10 @@
   ``` C#
   public Startup()
   {
-      var configuration = new Configuration()
+      var configuration = new ConfigurationBuilder()
           .AddJsonFile("config.json")
-          .AddEnvironmentVariables();
+          .AddEnvironmentVariables()
+          .Build();
 
       _configuration = configuration;
   }
@@ -233,17 +235,9 @@
 1. Now you're going to edit the launch profile so that it includes an environment variable that will override the message from `config.json`
 1. Right-mouse click on the project and select "Properties"
 1. Open the "Debug" tab
-1. Add an environment variable named "message" with a value of "Hello from environment variable!"
-1. Run the application again and the message should now be the value from the environment variable
+1. Add an environment variable named "culture" with a value of "fr-FR"
+1. Run the application again and the culture should now be the value fr-FR
 
+# Extra
 
-  ``` JSON
-  "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0-*"
-  },
-  ```
-  
-1. Ensure the packages have finished restoring without errors and that they're all from the same beta release before continuing
-1. The application is now configured to use the latest packages from the unstable feed
+## Supporting options flowing from dependency injection
