@@ -160,3 +160,34 @@
 6. Run the application and navigate to `/api/products/40` and it should return a 404 status code.
 
 ## Adding to the list of products
+
+1. Add a `Post` method to `ProductsController` the takes a `Product` as input and adds it to the list of products:
+
+  ```C#
+  public void Post(Product product)
+  {
+      _products.Add(product);
+  }
+  ```
+
+2. Add an `[HttpPost]` attribute to the method to constrain it to the POST HTTP verb:
+
+  ```C#
+  [HttpPost]
+  public void Post(Product product)
+  {
+      _products.Add(product);
+  }
+  ```
+  
+3. Add a `[FromBody]` to the `product` argument:
+
+  ```C#
+  [HttpPost]
+  public void Post([FromBody]Product product)
+  {
+      _products.Add(product);
+  }
+  ```
+
+4. Run the application, open a tool like fiddler or POSTman, 
