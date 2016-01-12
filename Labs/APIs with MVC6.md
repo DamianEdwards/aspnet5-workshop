@@ -190,4 +190,13 @@
   }
   ```
 
-4. Run the application, open a tool like fiddler or POSTman, 
+4. Run the application, open a tool like fiddler or POSTman, and post a JSON payload with the `Content-Type` header `application/json` to `/api/products`:
+
+  ```JSON
+  {
+     "Id" : "4",
+     "Name": "4K Television"
+  }
+  ```
+
+5. Make a GET request to `/api/products` and the new entity should show up in the list.
