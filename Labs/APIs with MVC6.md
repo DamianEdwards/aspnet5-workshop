@@ -91,7 +91,7 @@
       private static List<Product> _products = new List<Product>(new[] {
           new Product() { Id = 1, Name = "Computer" },
           new Product() { Id = 2, Name = "Radio" },
-          new Product() { Id = 2, Name = "Apple" },
+          new Product() { Id = 3, Name = "Apple" },
       });
       ...
   }
@@ -117,5 +117,29 @@
       return _products;
   }
   ```
+
+## Add a method to Get a single product
+
+1. Add a `Get` method to the `ProductsController` that takes an `int id` parameter and returns `Product`.
+
+  ```C#
+  public Product Get(int id)
+  {
+      return _products.Single(p => p.Id == id);
+  }
+  ```
+
+2. Add an `HttpGet` route specifying the `id` as a route parameter:
+
+  ```C#
+  [HttpGet("{id}")]
+  public Product Get(int id)
+  {
+      return _products.FirstOrDefault(p => p.Id == id);
+  }
+  ```
+
+3. Run the application, and navigate to `/api/products/1`, you should see a JSON response for the first product.
+4. Navigate to `/api/products/25`, it should return a 204 status code.
 
 ## 
