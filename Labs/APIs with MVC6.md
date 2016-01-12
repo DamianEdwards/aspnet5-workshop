@@ -59,3 +59,63 @@
   ```
 
 8. Run the application and navigate to `/api/products`, it should return the string "Hello World".
+
+## Returning JSON from the controller
+
+1. Add the `Microsoft.AspNet.Mvc.Formatters.Json` to `project.json`:
+
+  ```JSON
+    "dependencies": {
+    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNet.Mvc.Core": "6.0.0-*",
+    "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-*"
+  },
+  ```
+
+2. Configure MVC to use the JSON formatter by changing the `ConfigureServices` in `Startup.cs` to use the following:
+
+  ```C#
+  public void ConfigureServices(IServiceCollection services)
+  {
+      services.AddMvcCore()
+          .AddJsonFormatters();
+  }
+  ```
+
+3. Add a static list of projects to the `ProductsController`:
+
+  ```C#
+  public class ProductsController
+  {
+      private static List<Product> _products = new List<Product>(new[] {
+          new Product() { Id = 1, Name = "Computer" },
+          new Product() { Id = 2, Name = "Radio" },
+          new Product() { Id = 2, Name = "Apple" },
+      });
+      ...
+  }
+  
+  ```
+4. Change the `Get` method in `ProductsController` to return `IEnumerable<Product>` and return the list of products.
+
+  ```C#
+  public IEnumerable<Product> Get()
+  {
+      return _products;
+  }
+  ```
+
+5. Run the application and navigate to `/api/products`. You should see a JSON payload of with all of the products.
+6. Make a POST request to `/api/products`, you should see a JSON payload with all products.
+7. Restrict the `Get` method to respond to GET requests by adding an `[HttpGet]` attribute to the method:
+
+  ```C#
+  [HttpGet]
+  public IEnumerable<Product> Get()
+  {
+      return _products;
+  }
+  ```
+
+## 
