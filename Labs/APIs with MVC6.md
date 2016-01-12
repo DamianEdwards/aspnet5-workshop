@@ -200,3 +200,29 @@
   ```
 
 5. Make a GET request to `/api/products` and the new entity should show up in the list.
+
+## Adding XML support
+
+1. Add the `Microsoft.AspNet.Mvc.Formatters.Xml` package to `project.json`:
+
+  ```JSON
+  "dependencies": {
+    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNet.Mvc.Core": "6.0.0-*",
+    "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-*",
+    "Microsoft.AspNet.Mvc.Formatters.Xml": "6.0.0-*"
+  },
+  ```
+
+2. In `Startup.cs` add a call to  `AddXmlDataContractSerializerFormatters()` chained off the `AddMvcCore` method in `ConfigureServices`:
+
+  ```C#
+  public void ConfigureServices(IServiceCollection services)
+  {
+      services.AddMvcCore()
+          .AddJsonFormatters()
+          .AddXmlDataContractSerializerFormatters();
+  }
+  ```
+3. Run the application and make a request to `/api/products` with the accept header `application/xml`. The response should be an XML paylod of the products.
