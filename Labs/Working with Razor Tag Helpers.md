@@ -18,7 +18,7 @@
   ``` C#
     for (int i = 0; i < Count; i++)
     {
-        output.Content.Append(await context.GetChildContentAsync(useCachedResult: false));
+        output.Content.Append(await output.GetChildContentAsync(useCachedResult: false));
     }
   ```
 
