@@ -141,5 +141,22 @@
 
 3. Run the application, and navigate to `/api/products/1`, you should see a JSON response for the first product.
 4. Navigate to `/api/products/25`, it should return a 204 status code.
+5. Change the `Get` method in the `ProductsController` to return a 404 if the product search returns null.
 
-## 
+  ```C#
+  [HttpGet("{id}")]
+  public IActionResult Get(int id)
+  {
+      var product = _products.FirstOrDefault(p => p.Id == id);
+
+      if (product == null)
+      {
+          return new HttpNotFoundResult();
+      }
+
+      return new HttpOkObjectResult(product);
+  }
+  ```
+6. Run the application and navigate to `/api/products/40` and it should return a 404 status code.
+
+## Adding to the list of products
