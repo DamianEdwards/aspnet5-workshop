@@ -6,7 +6,7 @@
 2. Add `Microsoft.AspNet.Mvc.Core` to `project.json`:
 
   ```JSON
-    "dependencies": {
+  "dependencies": {
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
     "Microsoft.AspNet.Mvc.Core": "6.0.0-*",
@@ -65,7 +65,7 @@
 1. Add the `Microsoft.AspNet.Mvc.Formatters.Json` to `project.json`:
 
   ```JSON
-    "dependencies": {
+  "dependencies": {
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
     "Microsoft.AspNet.Mvc.Core": "6.0.0-*",
@@ -226,3 +226,13 @@
   }
   ```
 3. Run the application and make a request to `/api/products` with the accept header `application/xml`. The response should be an XML paylod of the products.
+
+## Restrict the ProductsController to be JSON only
+
+1. Add a `[Produces("application/json")]` attribute to the `ProductsController` class:
+
+  ```C#
+  [Produces("application/json")]
+  [Route("/api/products")]
+  public class ProductsController
+  ```
