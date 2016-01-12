@@ -125,7 +125,7 @@
   ```C#
   public Product Get(int id)
   {
-      return _products.Single(p => p.Id == id);
+      return _products.FirstOrDefault(p => p.Id == id);
   }
   ```
 
