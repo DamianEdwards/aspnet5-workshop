@@ -42,17 +42,17 @@
   }
   ```
   
-1. Create a new `WebApplicationBuilder` in the `Program.cs` file to setup the server, urls and Startup class:
+1. Create a new `WebHostBuilder` in the `Program.cs` file to setup the server, urls and Startup class:
 
   ```C#
   public static void Main(string[] args)
   {
-      var app = new WebApplicationBuilder()
+      var host = new WebHostBuilder()
                   .UseServer("Microsoft.AspNet.Server.Kestrel")
                   .UseUrls("http://localhost:5001")
                   .UseStartup<Startup>()
                   .Build();
-      app.Run();
+      host.Run();
   }
   ```
   
@@ -65,13 +65,13 @@
   ```C#
   public static void Main(string[] args)
   {
-      var app = new WebApplicationBuilder()
+      var host = new WebHostBuilder()
                   .UseServer("Microsoft.AspNet.Server.Kestrel")
                   .UseUrls("http://localhost:5001")
                   .UseEnvironment(EnvironmentName.Development)
                   .UseStartup<Startup>()
                   .Build();
-      app.Run();
+      host.Run();
   }
   ```
   
@@ -93,13 +93,11 @@
   ```C#
   public static void Main(string[] args)
   {
-      var hostingConfiguration = WebApplicationConfiguration.GetDefault(args);
-
-      var app = new WebApplicationBuilder()
-                  .UseConfiguration(hostingConfiguration)
+      var host = new WebApplicationBuilder()
+                  .UseDefaultConfiguration(args)
                   .UseStartup<Startup>()
                   .Build();
-      app.Run();
+      host.Run();
   }
   ```
 1. Run the application, it should have the same settings that it had previously instead they should be read from the `hosting.json` file.
