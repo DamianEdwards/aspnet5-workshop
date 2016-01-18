@@ -174,6 +174,19 @@
     "Microsoft.AspNet.StaticFiles": "1.0.0-*"
   },
   ```
+1. Add `UseIISPlatformHandlerUrl()` to the `Main` method in `Program.cs`:
+
+  ```C#
+  public static void Main(string[] args)
+  {
+      var host = new WebApplicationBuilder()
+                  .UseDefaultConfiguration(args)
+                  .UseIISPlatformHandlerUrl()
+                  .UseStartup<Startup>()
+                  .Build();
+      host.Run();
+  }
+  ```
 
 1. Add `app.UseIISPlatformHandler()` to the `Configure` method in `Startup.cs`:
 
