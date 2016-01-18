@@ -49,13 +49,13 @@
   ``` c#
   public static void Main(string[] args)
   {
-      var app = new WebApplicationBuilder()
+      var host = new WebHostBuilder()
+          .UseDefaultConfiguration(args)
           .UseServer("Microsoft.AspNet.Server.Kestrel")
-          .UseConfiguration(WebApplicationConfiguration.GetDefault(args))
           .UseStartup<Startup>()
           .Build();
 
-      app.Run();
+      host.Run();
   }
   ```
 1. Verify your application builds and runs (Ctrl+F5) 
