@@ -52,6 +52,7 @@
       var host = new WebHostBuilder()
           .UseDefaultConfiguration(args)
           .UseServer("Microsoft.AspNet.Server.Kestrel")
+          .UseIISPlatformHandlerUrl()
           .UseStartup<Startup>()
           .Build();
 
