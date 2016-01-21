@@ -28,7 +28,7 @@
   }
   ```
 
-4. Create a folder called `Modles` and create a class called `Product` in that folder:
+4. Create a folder called `Models` and create a class called `Product` in that folder:
 
   ```C#
   public class Product
@@ -190,7 +190,7 @@
   }
   ```
 
-4. Run the application, open a tool like fiddler or POSTman, and post a JSON payload with the `Content-Type` header `application/json` to `/api/products`:
+4. Run the application, open a tool like [fiddler](http://www.telerik.com/fiddler) or [POSTman](https://www.getpostman.com/), and post a JSON payload with the `Content-Type` header `application/json` to `/api/products`:
 
   ```JSON
   {
@@ -225,7 +225,7 @@
           .AddXmlDataContractSerializerFormatters();
   }
   ```
-3. Run the application and make a request to `/api/products` with the accept header `application/xml`. The response should be an XML paylod of the products.
+3. Run the application and make a request to `/api/products` with the accept header `application/xml`. The response should be an XML payload of the products.
 
 ## Restrict the ProductsController to be JSON only
 
