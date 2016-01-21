@@ -12,6 +12,14 @@
   }
   ```
 1. Open the `Startup.cs` file
+1. Add the routing services to the configuration in the `Startup.cs`:
+
+  ``` c#
+  public void ConfigureServices(IServiceCollection services)
+  {
+      services.AddRouting();
+  }
+  ```
 1. In the `Configure` method, create a `RouteBuilder` with a handler for the root of the site and add it to the middleware pipeline:
   
   ``` c#
