@@ -3,16 +3,18 @@
 ## Install the routing package
 1. Use the application you created in the first lab
 1. Open the `project.json` file
-1. In the `dependencies` section, add an entry for the "Microosft.AspNet.Routing.Extensions" package:
+1. In the `dependencies` section, add an entry for the "Microsoft.AspNet.Routing.Extensions" and "Microsoft.AspNet.Routing" packages:
 
   ``` JSON
   "dependencies": {
     ...,
-    "Microsoft.AspNet.Routing.Extensions": "1.0.0-*"
+    "Microsoft.AspNet.Routing.Extensions": "1.0.0-*",
+    "Microsoft.AspNet.Routing" : "1.0.0-*"
   }
   ```
 1. Open the `Startup.cs` file
-1. Add the routing services to the configuration in the `Startup.cs`:
+1. Add the using statement `using Microsoft.AspNet.Routing;`
+1. Add the routing services to the configuration in `Startup.cs`:
 
   ``` c#
   public void ConfigureServices(IServiceCollection services)
@@ -34,6 +36,15 @@
       app.UseRouter(routeBuilder.Build());
   }
   ```
+  
+1. In the `ConfigureServices` method, register the Routing services:
+ 
+ ``` c#
+    public void ConfigureServices(IServiceCollection services)
+    {
+       services.AddRouting();
+    }
+``` 
 1. Run the site and verify your middleware is hit via routing (Ctrl+F5)
 1. Add another route that matches a sub-path:
   
@@ -88,7 +99,7 @@
   public void Configure(IApplicationBuilder app)
   {
       ...
-      services.UseMvc();
+      app.UseMvc();
   }
   ```
 1. Run the site and verify the message is returned from your MVC controller
