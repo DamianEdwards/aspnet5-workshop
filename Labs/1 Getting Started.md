@@ -1,4 +1,4 @@
-# 1. Getting Started
+# 1 Getting Started
 
 ## Installing & updating ASP.NET 5
 1. Go to https://docs.asp.net/en/latest/getting-started/index.html and follow the instructions for installing ASP.NET 5 on your OS.
