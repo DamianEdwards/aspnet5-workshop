@@ -19,15 +19,15 @@
 1. You should have a `Program.cs` with an empty `Main` method.
 
 ## Add ASP.NET 5 to the project
-1. Add `Microsoft.AspNet.Server.Kestrel` to `project.json`.
+1. Add `Microsoft.AspNetCore.Server.Kestrel` to `project.json`.
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*"
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*"
   },
   ```
 
-1. Add a `Startup.cs` file with a `Configure` that prints out the string "Hello World" (you may need to add `using Microsoft.AspNet.Http` for the WriteAsync extension method):
+1. Add a `Startup.cs` file with a `Configure` that prints out the string "Hello World" (you may need to add `using Microsoft.AspNetCore.Http` for the WriteAsync extension method):
 
   ```C#
   public class Startup
@@ -48,7 +48,7 @@
   public static void Main(string[] args)
   {
       var host = new WebHostBuilder()
-                  .UseServer("Microsoft.AspNet.Server.Kestrel")
+                  .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                   .UseUrls("http://localhost:5001")
                   .UseStartup<Startup>()
                   .Build();
@@ -66,7 +66,7 @@
   public static void Main(string[] args)
   {
       var host = new WebHostBuilder()
-                  .UseServer("Microsoft.AspNet.Server.Kestrel")
+                  .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                   .UseUrls("http://localhost:5001")
                   .UseEnvironment(EnvironmentName.Development)
                   .UseStartup<Startup>()
@@ -83,7 +83,7 @@
 
   ```JSON
   {
-    "server": "Microsoft.AspNet.Server.Kestrel",
+    "server": "Microsoft.AspNetCore.Server.Kestrel",
     "server.urls": "http://localhost:5001"
   }
   ```
@@ -93,7 +93,7 @@
   ```C#
   public static void Main(string[] args)
   {
-      var host = new WebApplicationBuilder()
+      var host = new WebHostBuilder()
                   .UseDefaultConfiguration(args)
                   .UseStartup<Startup>()
                   .Build();
@@ -117,12 +117,12 @@
 
 ## Serving static files
 
-1. Add the `Microsoft.AspNet.StaticFiles` package to `project.json`:
+1. Add the `Microsoft.AspNetCore.StaticFiles` package to `project.json`:
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-*"
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-*"
   },
   ```
 1. Go to `Startup.cs` in the `Configure` method and add `UseStaticFiles` before the hello world middleware:
@@ -165,13 +165,13 @@
 
 ## Add IIS Support
 
-1. Add the `Microsoft.AspNet.IISPlatformHandler` package to `project.json`:
+1. Add the `Microsoft.AspNetCore.IISPlatformHandler` package to `project.json`:
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-*"
+    "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-*",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-*"
   },
   ```
 1. Add `UseIISPlatformHandlerUrl()` to the `Main` method in `Program.cs`:
