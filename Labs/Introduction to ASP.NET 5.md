@@ -19,15 +19,15 @@
 1. You should have a `Program.cs` with an empty `Main` method.
 
 ## Add ASP.NET 5 to the project
-1. Add `Microsoft.AspNet.Server.Kestrel` to `project.json`.
+1. Add `Microsoft.AspNetCore.Server.Kestrel` to `project.json`.
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*"
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*"
   },
   ```
 
-1. Add a `Startup.cs` file with a `Configure` that prints out the string "Hello World" (you may need to add `using Microsoft.AspNet.Http` for the WriteAsync extension method):
+1. Add a `Startup.cs` file with a `Configure` that prints out the string "Hello World" (you may need to add `using Microsoft.AspNetCore.Http` for the WriteAsync extension method):
 
   ```C#
   public class Startup
@@ -48,7 +48,7 @@
   public static void Main(string[] args)
   {
       var host = new WebHostBuilder()
-                  .UseServer("Microsoft.AspNet.Server.Kestrel")
+                  .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                   .UseUrls("http://localhost:5001")
                   .UseStartup<Startup>()
                   .Build();
