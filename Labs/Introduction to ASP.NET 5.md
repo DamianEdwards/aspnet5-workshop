@@ -165,13 +165,13 @@
 
 ## Add IIS Support
 
-1. Add the `Microsoft.AspNet.IISPlatformHandler` package to `project.json`:
+1. Add the `Microsoft.AspNetCore.IISPlatformHandler` package to `project.json`:
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-*"
+    "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-*",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-*"
   },
   ```
 1. Add `UseIISPlatformHandlerUrl()` to the `Main` method in `Program.cs`:
