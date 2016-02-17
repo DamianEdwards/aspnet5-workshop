@@ -117,12 +117,12 @@
 
 ## Serving static files
 
-1. Add the `Microsoft.AspNet.StaticFiles` package to `project.json`:
+1. Add the `Microsoft.AspNetCore.StaticFiles` package to `project.json`:
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-*"
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-*"
   },
   ```
 1. Go to `Startup.cs` in the `Configure` method and add `UseStaticFiles` before the hello world middleware:
