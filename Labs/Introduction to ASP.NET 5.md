@@ -66,7 +66,7 @@
   public static void Main(string[] args)
   {
       var host = new WebHostBuilder()
-                  .UseServer("Microsoft.AspNet.Server.Kestrel")
+                  .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                   .UseUrls("http://localhost:5001")
                   .UseEnvironment(EnvironmentName.Development)
                   .UseStartup<Startup>()
@@ -83,7 +83,7 @@
 
   ```JSON
   {
-    "server": "Microsoft.AspNet.Server.Kestrel",
+    "server": "Microsoft.AspNetCore.Server.Kestrel",
     "server.urls": "http://localhost:5001"
   }
   ```
