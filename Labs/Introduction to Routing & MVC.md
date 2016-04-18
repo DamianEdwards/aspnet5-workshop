@@ -88,7 +88,7 @@
   public void Configure(IApplicationBuilder app)
   {
       ...
-      services.UseMvc();
+      app.UseMvc();
   }
   ```
 1. Run the site and verify the message is returned from your MVC controller
