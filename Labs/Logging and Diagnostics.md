@@ -6,8 +6,7 @@
 
     ```JSON
       "dependencies": {
-        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+        "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
         "Microsoft.Extensions.Logging.Console": "1.0.0-*"
       },
     ```
@@ -84,9 +83,8 @@
 
     ```JSON
       "dependencies": {
-        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-        "Microsoft.Extensions.Logging.Console": "1.0.0-*",
+        "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+        "Microsoft.AspNetCore.Logging.Console": "1.0.0-*",
         "Serilog.Framework.Logging": "1.0.0-*"
       },
     ```
@@ -155,9 +153,8 @@
 
     ```JSON
       "dependencies": {
-        "Microsoft.AspNet.Diagnostics": "1.0.0-*",
-        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+        "Microsoft.AspNetCore.Diagnostics": "1.0.0-*",
+        "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
         "Microsoft.Extensions.Logging.Console": "1.0.0-*",
         "Serilog.Framework.Logging": "1.0.0-*"
       },
