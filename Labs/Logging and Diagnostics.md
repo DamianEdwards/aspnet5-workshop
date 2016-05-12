@@ -93,9 +93,9 @@
     ```C#
     public class Startup
     {
-        public Startup(IApplicationEnvironment appEnv)
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
-            var logFile = Path.Combine(appEnv.ApplicationBasePath, "logfile.txt");
+            var logFile = Path.Combine(hostingEnvironment.ContentRootPath, "logfile.txt");
     
             Log.Logger = new LoggerConfiguration()
                             .WriteTo.TextWriter(File.CreateText(logFile))
