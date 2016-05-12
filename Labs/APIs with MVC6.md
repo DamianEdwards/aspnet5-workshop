@@ -7,9 +7,8 @@
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.Mvc.Core": "6.0.0-*",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.Mvc.Core": "6.0.0-*",
   },
   ```
 3. In `Startup.cs` add `services.AddMvcCore()` to `ConfigureServices` and add `app.UseMvc()` to `Configure`:
@@ -22,8 +21,6 @@
   
   public void Configure(IApplicationBuilder app)
   {
-      app.UseIISPlatformHandler();
-
       app.UseMvc();
   }
   ```
@@ -66,10 +63,9 @@
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.Mvc.Core": "6.0.0-*",
-    "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-*"
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.Mvc.Core": "6.0.0-*",
+    "Microsoft.AspNetCore.Mvc.Formatters.Json": "6.0.0-*"
   },
   ```
 
@@ -207,11 +203,10 @@
 
   ```JSON
   "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.Mvc.Core": "6.0.0-*",
-    "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-*",
-    "Microsoft.AspNet.Mvc.Formatters.Xml": "6.0.0-*"
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.Mvc.Core": "6.0.0-*",
+    "Microsoft.AspNetCore.Mvc.Formatters.Json": "6.0.0-*",
+    "Microsoft.AspNetCore.Mvc.Formatters.Xml": "6.0.0-*"
   },
   ```
 
