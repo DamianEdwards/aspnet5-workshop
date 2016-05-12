@@ -15,13 +15,9 @@
           if (!string.IsNullOrWhiteSpace(cultureQuery))
           {
               var culture = new CultureInfo(cultureQuery);
-      #if !DNXCORE50
-              Thread.CurrentThread.CurrentCulture = culture;
-              Thread.CurrentThread.CurrentUICulture = culture;
-      #else
+
               CultureInfo.CurrentCulture = culture;
               CultureInfo.CurrentUICulture = culture;
-      #endif
           }
         
           // Call the next delegate/middleware in the pipeline
@@ -61,13 +57,9 @@
           if (!string.IsNullOrWhiteSpace(cultureQuery))
           {
               var culture = new CultureInfo(cultureQuery);
-  #if !DNXCORE50
-              Thread.CurrentThread.CurrentCulture = culture;
-              Thread.CurrentThread.CurrentUICulture = culture;
-  #else
+
               CultureInfo.CurrentCulture = culture;
               CultureInfo.CurrentUICulture = culture;
-  #endif
           }
   
           return _next(context);
@@ -154,13 +146,8 @@
 
       if (requestCulture != null)
       {
-  #if !DNXCORE50
-          Thread.CurrentThread.CurrentCulture = requestCulture;
-          Thread.CurrentThread.CurrentUICulture = requestCulture;
-  #else
           CultureInfo.CurrentCulture = requestCulture;
           CultureInfo.CurrentUICulture = requestCulture;
-  #endif
       }
 
       return _next(httpContext);
